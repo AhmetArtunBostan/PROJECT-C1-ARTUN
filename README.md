@@ -1,5 +1,7 @@
 # IT Course Project
 
+> **Note:** This documentation uses sample dates (Feb-Mar 2025) for sprint planning demonstration purposes.
+
 ## Project Overview
 This project is developed as part of the IT course, focusing on implementing software development practices using the SCRUM framework.
 
@@ -82,8 +84,6 @@ This project will be developed over multiple SCRUM sprints (3-4) throughout the 
 
 ## SCRUM Process Documentation
 
-*Note: Sprint dates are sample dates used for demonstration purposes.*
-
 ### Sprint 1 (Feb 4 - Feb 18, 2025)
 
 #### Sprint Goal
@@ -127,8 +127,6 @@ Total Story Points: 12 (All Completed! )
 
 ##### Sprint Completed - All Tasks Done
 ![Sprint Completed](docs/screenshots/sixth_task_completed.png)
-
-*Note: Screenshots show the complete progression of Sprint 1, from initial setup to successful completion. All 6 tasks have been moved to the DONE column, demonstrating proper use of SCRUM methodology and achieving our sprint goal of completing project planning and basic structure setup.*
 
 ### Sprint 2 (Feb 19 - Mar 4, 2025)
 
