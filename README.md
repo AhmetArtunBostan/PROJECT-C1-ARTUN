@@ -82,6 +82,8 @@ This project will be developed over multiple SCRUM sprints (3-4) throughout the 
 
 ## SCRUM Process Documentation
 
+*Note: Sprint dates are sample dates used for demonstration purposes.*
+
 ### Sprint 1 (Feb 4 - Feb 18, 2025)
 
 #### Sprint Goal
