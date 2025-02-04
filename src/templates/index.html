@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Task Management System</h1>
+            <div class="header-actions">
+                <div class="filters">
+                    <select id="statusFilter" class="filter-select" onchange="applyFilters()">
+                        <option value="">All Status</option>
+                        <option value="todo">To Do</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <select id="priorityFilter" class="filter-select" onchange="applyFilters()">
+                        <option value="">All Priority</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <select id="sortBy" class="filter-select" onchange="applyFilters()">
+                        <option value="created_desc">Newest First</option>
+                        <option value="created_asc">Oldest First</option>
+                        <option value="priority_desc">Priority (High to Low)</option>
+                        <option value="priority_asc">Priority (Low to High)</option>
+                    </select>
+                </div>
+                <button class="button button-primary" onclick="openCreateTaskModal()">Create New Task</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="task-stats">
+                <div class="stat-card">
+                    <h3>Total Tasks</h3>
+                    <p id="totalTasks">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>To Do</h3>
+                    <p id="todoTasks">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>In Progress</h3>
+                    <p id="inProgressTasks">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed</h3>
+                    <p id="completedTasks">0</p>
+                </div>
+            </div>
+            
+            <div class="task-list" id="taskList">
+                <!-- Tasks will be dynamically added here -->
+            </div>
+            
+            <div id="noTasks" class="no-tasks" style="display: none;">
+                <p>No tasks found. Create a new task to get started!</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Task Modal -->
+    <div id="createTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCreateTaskModal()">&times;</span>
+            <h2>Create New Task</h2>
+            <form id="createTaskForm" onsubmit="createTask(event)" novalidate>
+                <div class="form-group">
+                    <label for="title">Title <span class="required">*</span></label>
+                    <input type="text" id="title" name="title" class="form-control" required
+                           minlength="3" maxlength="100"
+                           placeholder="Enter task title"
+                           oninput="validateField(this)"
+                           onblur="validateField(this)">
+                    <div class="form-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" class="form-control" rows="3"
+                            maxlength="500"
+                            placeholder="Enter task description"
+                            oninput="validateField(this)"
+                            onblur="validateField(this)"></textarea>
+                    <div class="form-feedback"></div>
+                    <div class="char-count">0/500</div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group form-group-half">
+                        <label for="status">Status <span class="required">*</span></label>
+                        <select id="status" name="status" class="form-control" required
+                                onchange="validateField(this)">
+                            <option value="">Select Status</option>
+                            <option value="todo">To Do</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <div class="form-feedback"></div>
+                    </div>
+                    <div class="form-group form-group-half">
+                        <label for="priority">Priority <span class="required">*</span></label>
+                        <select id="priority" name="priority" class="form-control" required
+                                onchange="validateField(this)">
+                            <option value="">Select Priority</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                        <div class="form-feedback"></div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="button button-secondary" onclick="closeCreateTaskModal()">Cancel</button>
+                    <button type="submit" class="button button-primary" id="createTaskButton">Create Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="editTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditTaskModal()">&times;</span>
+            <h2>Edit Task</h2>
+            <form id="editTaskForm" onsubmit="updateTask(event)" novalidate>
+                <input type="hidden" id="editTaskId">
+                <div class="form-group">
+                    <label for="editTitle">Title <span class="required">*</span></label>
+                    <input type="text" id="editTitle" name="title" class="form-control" required
+                           minlength="3" maxlength="100"
+                           placeholder="Enter task title"
+                           oninput="validateField(this)"
+                           onblur="validateField(this)">
+                    <div class="form-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="editDescription">Description</label>
+                    <textarea id="editDescription" name="description" class="form-control" rows="3"
+                            maxlength="500"
+                            placeholder="Enter task description"
+                            oninput="validateField(this)"
+                            onblur="validateField(this)"></textarea>
+                    <div class="form-feedback"></div>
+                    <div class="char-count">0/500</div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group form-group-half">
+                        <label for="editStatus">Status <span class="required">*</span></label>
+                        <select id="editStatus" name="status" class="form-control" required
+                                onchange="validateField(this)">
+                            <option value="">Select Status</option>
+                            <option value="todo">To Do</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <div class="form-feedback"></div>
+                    </div>
+                    <div class="form-group form-group-half">
+                        <label for="editPriority">Priority <span class="required">*</span></label>
+                        <select id="editPriority" name="priority" class="form-control" required
+                                onchange="validateField(this)">
+                            <option value="">Select Priority</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                        <div class="form-feedback"></div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="button button-danger" onclick="confirmDeleteTask()">Delete Task</button>
+                    <div class="form-actions-right">
+                        <button type="button" class="button button-secondary" onclick="closeEditTaskModal()">Cancel</button>
+                        <button type="submit" class="button button-primary" id="updateTaskButton">Update Task</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

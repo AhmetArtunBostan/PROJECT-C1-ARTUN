@@ -1,0 +1,35 @@
+@startuml System Architecture
+
+!define RECTANGLE class
+
+skinparam componentStyle uml2
+skinparam component {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+package "Frontend" {
+  [Web Browser] as client
+  [HTML/CSS/JS] as static
+}
+
+package "Backend (FastAPI)" {
+  [FastAPI Application] as app
+  [Routes] as routes
+  [Models] as models
+  [Database] as db
+}
+
+database "SQLite" {
+  [Tasks Table] as tasks
+}
+
+client --> static : HTTP
+static --> app : HTTP/JSON
+app --> routes
+routes --> models
+models --> db
+db --> tasks
+
+@enduml

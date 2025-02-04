@@ -1,0 +1,50 @@
+<mxfile host="app.diagrams.net" modified="2024-02-04T20:30:00.000Z" agent="Mozilla/5.0" version="21.6.6" etag="your-etag">
+  <diagram name="System Architecture" id="system-arch">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Frontend Box -->
+        <mxCell id="frontend" value="Frontend (Client)&#xa;- HTML5, CSS3, JavaScript&#xa;- Web Interface&#xa;- Task Forms &amp; Lists" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="80" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <!-- Backend Box -->
+        <mxCell id="backend" value="Backend (Server)&#xa;- FastAPI REST API&#xa;- Task CRUD Operations&#xa;- Business Logic" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="240" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <!-- Database Box -->
+        <mxCell id="database" value="Database&#xa;- SQLite&#xa;- SQLAlchemy ORM&#xa;- Task Table" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="400" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrows -->
+        <mxCell id="arrow1" value="HTTP/API Requests" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="frontend" target="backend">
+          <mxGeometry x="-0.2" relative="1" as="geometry">
+            <mxPoint as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow2" value="JSON Responses" style="endArrow=classic;html=1;exitX=0.25;exitY=0;entryX=0.25;entryY=1;" edge="1" parent="1" source="backend" target="frontend">
+          <mxGeometry x="0.2" relative="1" as="geometry">
+            <mxPoint as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow3" value="SQL Queries" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="backend" target="database">
+          <mxGeometry x="-0.2" relative="1" as="geometry">
+            <mxPoint as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow4" value="Query Results" style="endArrow=classic;html=1;exitX=0.25;exitY=0;entryX=0.25;entryY=1;" edge="1" parent="1" source="database" target="backend">
+          <mxGeometry x="0.2" relative="1" as="geometry">
+            <mxPoint as="offset"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
